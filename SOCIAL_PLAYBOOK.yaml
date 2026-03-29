@@ -1,0 +1,224 @@
+# ============================================================
+# SOCIAL PUBLISHING PLAYBOOK — Agenzia AI
+# Mappa completa canali, brand, metodi di pubblicazione
+# Aggiornato: 29 Marzo 2026
+# ============================================================
+
+# ============================================================
+# BRAND → CANALI
+# Ogni brand ha i suoi canali. MAI mischiare contenuti tra brand.
+# ============================================================
+
+brands:
+
+  tsunami_ai:
+    descrizione: "Community AI + vendita consulenze e corsi"
+    target: "PMI italiane, imprenditori, freelancer interessati all'AI"
+    tono: "Diretto, pratico, zero fuffa, amico esperto"
+    canali:
+      - piattaforma: Telegram
+        tipo: canale
+        handle: "@tsunamiaifranz"
+        url: "https://t.me/tsunamiaifranz"
+        followers: 209
+        metodo_pubblicazione: "Webhook n8n"
+        webhook: "https://n8n-pacc.srv1478295.hstgr.cloud/webhook/telegram-publish"
+        formato_body: '{"text": "messaggio HTML"}'
+        parse_mode: HTML
+        note: "Bot @franz_ai_agency_bot deve essere admin del canale"
+
+      - piattaforma: Facebook
+        tipo: pagina
+        nome: "Tsunami AI"
+        followers: 35
+        blotato_account_id: "23282"
+        blotato_page_id: "103126748070134"
+        metodo_pubblicazione: "Blotato API via n8n"
+        webhook: "https://n8n-pacc.srv1478295.hstgr.cloud/webhook/publish-content"
+        note: "Da rilanciare"
+
+      - piattaforma: TikTok
+        tipo: profilo
+        handle: "@franz.retreat.premium"
+        blotato_account_id: "33944"
+        followers: 94
+        metodo_pubblicazione: "Blotato API via n8n"
+        note: "Alto potenziale organico, video brevi"
+
+      - piattaforma: YouTube
+        tipo: canale
+        handle: "@franz.retreat.premium"
+        followers: 27
+        views: "66K+"
+        metodo_pubblicazione: "Upload manuale o Blotato"
+        note: "Bio linka @franz.retreat.premium su IG (non esiste) → FIX: aggiornare a @franz.retreat"
+
+  franz_retreat:
+    descrizione: "Retreat trasformazionali a Boa Vista, Capo Verde"
+    target: "Persone in ricerca interiore, yoga, meditazione, crescita personale"
+    tono: "Caldo, evocativo, spirituale ma non new-age, autentico"
+    canali:
+      - piattaforma: Instagram
+        tipo: profilo
+        handle: "@franz.retreat"
+        url: "https://www.instagram.com/franz.retreat"
+        followers: 405
+        blotato_account_id: "35827"
+        metodo_pubblicazione: "Blotato API via n8n"
+        note: "Canale principale B2C retreat"
+
+      - piattaforma: Facebook
+        tipo: pagina
+        nome: "Azione Consapevole"
+        followers: 297
+        metodo_pubblicazione: "Manuale o Blotato"
+        note: "Attivo - yoga/retreat"
+
+      - piattaforma: Instagram
+        tipo: profilo
+        handle: "@azioneconsapevole"
+        followers: 6
+        metodo_pubblicazione: "Manuale"
+        note: "Dormiente. Typo 'Retret' da fixare. Logo drago = stesso di Tsunami AI"
+
+      - piattaforma: Threads
+        tipo: profilo
+        handle: "@franz.retreat"
+        followers: 36
+        metodo_pubblicazione: "Manuale"
+
+  alessandro_personale:
+    descrizione: "Brand personale Alessandro Franzoni"
+    target: "Network professionale, contatti personali"
+    tono: "Professionale ma personale, storytelling, leadership"
+    canali:
+      - piattaforma: LinkedIn
+        tipo: profilo
+        handle: "/alessandro-franzoni-0b73452b"
+        url: "https://www.linkedin.com/in/alessandro-franzoni-0b73452b"
+        followers: "500+"
+        metodo_pubblicazione: "Manuale (Claude scrive, Alessandro pubblica)"
+        note: "Principale B2B. Nessun API disponibile per LinkedIn personal."
+
+      - piattaforma: Facebook
+        tipo: profilo
+        nome: "Alessandro Franzoni P&S"
+        followers: 301
+        metodo_pubblicazione: "Manuale"
+        note: "Da riposizionare"
+
+      - piattaforma: X/Twitter
+        tipo: profilo
+        handle: "@AlessandroFranz"
+        followers: 5
+        metodo_pubblicazione: "Manuale"
+        note: "Dormiente. Bio corporate obsoleta."
+
+  altri_brand:
+    canali:
+      - piattaforma: Facebook
+        tipo: pagina
+        nome: "ArteLab"
+        followers: 112
+        metodo_pubblicazione: "Manuale"
+        note: "Da riattivare — arte"
+
+      - piattaforma: Facebook
+        tipo: gruppo
+        nome: "Gruppo Teatrale Covese 2.0"
+        followers: 80
+        metodo_pubblicazione: "Manuale"
+        note: "Attivo"
+
+      - piattaforma: Facebook
+        tipo: pagina
+        nome: "Cross Training"
+        followers: 112
+        metodo_pubblicazione: "Manuale"
+        note: "Tenere — allenamenti"
+
+# ============================================================
+# CAMPAGNA → QUALI CANALI USARE
+# Checklist rapida per tipo di campagna
+# ============================================================
+
+campagne:
+
+  lancio_retreat:
+    brand: franz_retreat
+    canali_primari:
+      - IG @franz.retreat (post + stories)
+      - FB Azione Consapevole (post)
+      - FB Alessandro Franzoni P&S (post personale)
+      - LinkedIn (post personale)
+    canali_secondari:
+      - TikTok @franz.retreat.premium (video breve)
+      - Threads @franz.retreat
+    link_prenotazione: "TBD — DM o link specifico"
+    note: "MAI pubblicare retreat su Telegram Tsunami AI (è canale AI/business)"
+
+  lancio_guida_ai:
+    brand: tsunami_ai
+    canali_primari:
+      - Telegram @tsunamiaifranz (webhook)
+      - LinkedIn (post personale)
+      - FB Tsunami AI
+    canali_secondari:
+      - TikTok (video "ho costruito un'agenzia AI senza codice")
+      - IG @franz.retreat (solo se angolo crossover AI+lifestyle)
+    link: "https://alessandrofranz78-web.github.io/guida-agenzia-ai/"
+
+  contenuto_ai_educativo:
+    brand: tsunami_ai
+    canali_primari:
+      - Telegram @tsunamiaifranz (webhook)
+      - TikTok (video breve)
+      - YouTube (video lungo)
+    canali_secondari:
+      - LinkedIn
+      - FB Tsunami AI
+
+  contenuto_personale_storytelling:
+    brand: alessandro_personale
+    canali_primari:
+      - LinkedIn
+      - FB Alessandro Franzoni P&S
+      - IG @franz.retreat
+    canali_secondari:
+      - Threads
+
+# ============================================================
+# METODI DI PUBBLICAZIONE
+# ============================================================
+
+metodi:
+
+  webhook_telegram:
+    url: "https://n8n-pacc.srv1478295.hstgr.cloud/webhook/telegram-publish"
+    metodo: POST
+    body: '{"text": "messaggio con <b>HTML</b>"}'
+    eseguibile_da: "Antigravity (curl) o Claude in Chrome (JS fetch)"
+    note: "Claude sandbox non raggiunge n8n direttamente. Usare Chrome JS fetch."
+
+  blotato_api:
+    url: "https://n8n-pacc.srv1478295.hstgr.cloud/webhook/publish-content"
+    metodo: POST
+    body: "TBD — formato da documentare nel workflow n8n"
+    piattaforme: ["Facebook", "Instagram", "TikTok"]
+    note: "Workflow n8n publish-content deve essere configurato per ogni piattaforma"
+
+  manuale:
+    descrizione: "Claude scrive il copy → Alessandro copia e pubblica"
+    piattaforme: ["LinkedIn", "X", "qualsiasi canale senza API"]
+
+# ============================================================
+# REGOLE OPERATIVE
+# ============================================================
+
+regole:
+  - "MAI mischiare contenuti tra brand (es. retreat su Tsunami AI)"
+  - "Ogni post deve avere #FranzAIRetreat"
+  - "LinkedIn: solo pubblicazione manuale (no API per profili personali)"
+  - "Prima di ogni campagna: consultare questo file per sapere DOVE e COME pubblicare"
+  - "Claude in Chrome può triggerare webhook via JS fetch dalla pagina corrente"
+  - "Per immagini/video: Midjourney genera, Alessandro carica manualmente"
