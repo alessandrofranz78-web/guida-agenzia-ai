@@ -403,6 +403,7 @@ body.gated .pdf-bar { display: none !important; }
 body.gated { overflow: hidden; }
 #email-gate { transition: opacity .5s; }
 #gate-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,212,170,.3); }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
 @media print {
   #email-gate { display: none !important; }
@@ -418,8 +419,24 @@ body.gated { overflow: hidden; }
     <div style="font-size:3rem;margin-bottom:1rem;">🌊</div>
     <h1 style="font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;margin-bottom:.5rem;background:linear-gradient(135deg,#fff,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">AGENZIA AI</h1>
     <p style="color:var(--accent);font-size:1rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:1.5rem;">La Guida Completa</p>
-    <p style="color:var(--text2);font-size:.95rem;line-height:1.6;margin-bottom:2rem;">11 capitoli, 12 prompt pronti, calcolatori interattivi e un piano d'azione di 30 giorni per costruire la tua Agenzia AI.<br><br>Inserisci la tua email per accedere subito.</p>
-    <div id="gate-form" style="display:flex;flex-direction:column;gap:.8rem;">
+    <p style="color:var(--text2);font-size:.95rem;line-height:1.6;margin-bottom:1.5rem;">11 capitoli, 12 prompt pronti, calcolatori interattivi e un piano d'azione di 30 giorni per costruire la tua Agenzia AI.</p>
+
+    <!-- STEP 1: SHARE -->
+    <div id="gate-share" style="margin-bottom:1.5rem;">
+      <p style="color:var(--text);font-size:1rem;font-weight:600;margin-bottom:1rem;">Condividi la guida per sbloccarla 👇</p>
+      <div style="display:flex;justify-content:center;gap:.6rem;flex-wrap:wrap;">
+        <button onclick="shareAndUnlock('whatsapp')" style="background:#25D366;color:#fff;border:none;padding:.6rem 1rem;border-radius:8px;font-size:.9rem;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;">💬 WhatsApp</button>
+        <button onclick="shareAndUnlock('telegram')" style="background:#0088cc;color:#fff;border:none;padding:.6rem 1rem;border-radius:8px;font-size:.9rem;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;">📢 Telegram</button>
+        <button onclick="shareAndUnlock('linkedin')" style="background:#0A66C2;color:#fff;border:none;padding:.6rem 1rem;border-radius:8px;font-size:.9rem;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;">💼 LinkedIn</button>
+        <button onclick="shareAndUnlock('x')" style="background:#1a1a2e;color:#fff;border:1px solid var(--border);padding:.6rem 1rem;border-radius:8px;font-size:.9rem;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;">𝕏 Post</button>
+        <button onclick="shareAndUnlock('copy')" style="background:var(--card);color:var(--text);border:1px solid var(--border);padding:.6rem 1rem;border-radius:8px;font-size:.9rem;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;" id="copy-link-btn">🔗 Copia Link</button>
+      </div>
+      <p style="color:var(--text3);font-size:.75rem;margin-top:.8rem;">Fai conoscere questa risorsa a chi ne ha bisogno.</p>
+    </div>
+
+    <!-- STEP 2: EMAIL (hidden until share) -->
+    <div id="gate-form" style="display:none;flex-direction:column;gap:.8rem;">
+      <p style="color:var(--accent);font-size:.9rem;font-weight:600;margin-bottom:.3rem;">✅ Grazie per aver condiviso! Ora inserisci la tua email:</p>
       <input type="text" id="gate-name" placeholder="Il tuo nome" style="background:var(--card);border:1px solid var(--border);color:var(--text);padding:.8rem 1rem;border-radius:8px;font-size:1rem;font-family:'DM Sans',sans-serif;outline:none;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'">
       <input type="email" id="gate-email" placeholder="La tua email migliore" required style="background:var(--card);border:1px solid var(--border);color:var(--text);padding:.8rem 1rem;border-radius:8px;font-size:1rem;font-family:'DM Sans',sans-serif;outline:none;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'">
       <div style="display:flex;align-items:flex-start;gap:8px;margin:4px 0;">
@@ -1544,7 +1561,6 @@ Sii brutalmente onesto. Zero diplomazia.</div>
     <a href="https://www.instagram.com/franz.retreat" target="_blank" style="color:var(--accent);text-decoration:none;">📸 Instagram</a>
     <a href="https://www.tiktok.com/@franz.retreat.premium" target="_blank" style="color:var(--accent);text-decoration:none;">🎵 TikTok</a>
     <a href="https://www.linkedin.com/in/alessandro-franzoni-0b73452b" target="_blank" style="color:var(--accent);text-decoration:none;">💼 LinkedIn</a>
-    <a href="https://agenzia-ai.tech" target="_blank" style="color:var(--accent);text-decoration:none;">🌐 Agenzia AI</a>
   </div>
   <p style="margin-top:1.5rem;font-size:.75rem">© 2026 Tsunami AI — Tutti i diritti riservati · #FranzAIRetreat</p>
 </div>
@@ -1647,6 +1663,39 @@ function calcROI() {
 const WEBHOOK_URL = 'https://n8n-pacc.srv1478295.hstgr.cloud/webhook/guida-lead';
 // Il webhook riceverà: { name, email, source: "guida-agenzia-ai", timestamp }
 
+const SHARE_URL = 'https://alessandrofranz78-web.github.io/guida-agenzia-ai/';
+const SHARE_TEXT = 'Ho trovato questa guida gratuita per costruire un team di agenti AI senza programmare. 11 capitoli, prompt pronti e calcolatori interattivi.';
+
+function shareAndUnlock(platform) {
+  let url = '';
+  switch(platform) {
+    case 'whatsapp':
+      url = 'https://wa.me/?text=' + encodeURIComponent(SHARE_TEXT + '\n\n' + SHARE_URL);
+      break;
+    case 'telegram':
+      url = 'https://t.me/share/url?url=' + encodeURIComponent(SHARE_URL) + '&text=' + encodeURIComponent(SHARE_TEXT);
+      break;
+    case 'linkedin':
+      url = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(SHARE_URL);
+      break;
+    case 'x':
+      url = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(SHARE_TEXT) + '&url=' + encodeURIComponent(SHARE_URL);
+      break;
+    case 'copy':
+      navigator.clipboard.writeText(SHARE_URL).then(function() {
+        document.getElementById('copy-link-btn').innerHTML = '✅ Copiato!';
+      });
+      break;
+  }
+  if (url) window.open(url, '_blank', 'width=600,height=400');
+  // Mostra il form email
+  document.getElementById('gate-share').style.display = 'none';
+  var form = document.getElementById('gate-form');
+  form.style.display = 'flex';
+  form.style.animation = 'fadeIn .4s ease';
+  window._sharedVia = platform;
+}
+
 (function initGate() {
   // Controlla se l'utente ha già sbloccato
   const unlocked = localStorage.getItem('guida-ai-unlocked');
@@ -1690,6 +1739,7 @@ async function unlockGuide() {
       body: JSON.stringify({
         name: name || 'Non fornito',
         email: email,
+        shared_via: window._sharedVia || 'unknown',
         privacy_consent: true,
         consent_timestamp: new Date().toISOString(),
         source: 'guida-agenzia-ai',
