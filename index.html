@@ -411,61 +411,35 @@ img.guide-img {
   .pdf-bar { left: 0; }
 }
 
-/* EMAIL GATE */
-body.gated .sidebar,
-body.gated .main,
-body.gated .sidebar-toggle,
-body.gated .theme-toggle,
-body.gated .pdf-bar { display: none !important; }
-body.gated { overflow: hidden; }
-#email-gate { transition: opacity .5s; }
-#gate-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,212,170,.3); }
+/* EMAIL GATE (inline mid-content) */
+#locked-content { display: none; }
+body.unlocked #locked-content { display: block; }
+body.unlocked #mid-gate { display: none; }
+#mid-gate { margin: 3rem 0; padding: 2.5rem; background: linear-gradient(135deg, var(--bg3), var(--card)); border: 1px solid var(--border); border-radius: 16px; text-align: center; }
+#mid-gate h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--accent); margin-bottom: .5rem; }
+#mid-gate .gate-sub { color: var(--text2); font-size: .95rem; line-height: 1.7; margin-bottom: 1.5rem; }
+#mid-gate input[type="text"], #mid-gate input[type="email"] { width: 100%; max-width: 400px; background: var(--bg); border: 1px solid var(--border); color: var(--text); padding: .8rem 1rem; border-radius: 8px; font-size: 1rem; font-family: 'DM Sans', sans-serif; outline: none; margin-bottom: .6rem; display: block; margin-left: auto; margin-right: auto; }
+#mid-gate input:focus { border-color: var(--accent); }
+#mid-gate-btn { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: var(--bg); border: none; padding: .9rem 2rem; border-radius: 8px; font-size: 1.05rem; font-weight: 700; cursor: pointer; transition: all .2s; letter-spacing: 1px; display: inline-block; margin-top: .5rem; }
+#mid-gate-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,212,170,.3); }
+.sidebar a.locked::after { content: ' 🔒'; font-size: .7rem; }
+body.unlocked .sidebar a.locked::after { content: ''; }
+#share-cta { margin: 3rem 0; padding: 2rem; background: var(--card); border: 1px solid var(--border); border-radius: 12px; text-align: center; }
+#share-cta h3 { color: var(--accent); margin-bottom: .5rem; font-size: 1.3rem; }
+#share-cta .share-buttons { display: flex; justify-content: center; gap: .8rem; flex-wrap: wrap; margin-top: 1rem; }
+#share-cta .share-buttons button { border: none; padding: .65rem 1.4rem; border-radius: 8px; font-size: .9rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all .2s; }
+#share-cta .share-buttons button:hover { transform: translateY(-1px); }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
 @media print {
-  #email-gate { display: none !important; }
+  #mid-gate { display: none !important; }
 }
 
 </style>
 </head>
 <body>
 
-<!-- EMAIL GATE -->
-<div id="email-gate" style="position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;align-items:flex-start;justify-content:center;padding:2rem;overflow-y:auto;">
-  <div style="max-width:520px;width:100%;text-align:center;margin:auto 0;">
-    <div style="font-size:3rem;margin-bottom:1rem;">🌊</div>
-    <h1 style="font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;margin-bottom:.5rem;background:linear-gradient(135deg,#fff,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">AGENZIA AI</h1>
-    <p style="color:var(--accent);font-size:1rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:1.5rem;">La Guida Completa</p>
-
-    <!-- HOOK + STORY (Power Hook + Eroe Riluttante + Frame Precisione) -->
-    <p style="color:var(--text);font-size:1.15rem;font-weight:700;margin-bottom:.8rem;">Mi sentivo derubato.</p>
-    <p style="color:var(--text2);font-size:.93rem;line-height:1.8;margin-bottom:1.5rem;">31 notti insonni. €1.702 di abbonamenti AI testati di tasca mia. Ogni piattaforma provata, ogni errore documentato, ogni scorciatoia pagata con tempo e frustrazione.<br><br>Non sono un formatore AI. Sono un imprenditore come te che gestiva 8 progetti da solo, senza dormire. Poi ho scoperto come costruire un <strong style="color:var(--text);">intero team di agenti intelligenti senza scrivere una riga di codice.</strong><br><br>Ho condensato tutto in <strong style="color:var(--accent);">11 capitoli, 12 prompt pronti e un piano d'azione di 30 giorni.</strong> Le agenzie ti farebbero pagare migliaia di euro per queste informazioni. Io te le regalo.</p>
-
-    <!-- STEP 1: SHARE (Frame Bianco-Nero + Aiuto Disinteressato) -->
-    <div id="gate-share" style="margin-bottom:1.5rem;">
-      <p style="color:var(--text);font-size:1.05rem;font-weight:700;margin-bottom:.5rem;">Questa guida è gratis. Ti chiedo solo un post.</p>
-      <p style="color:var(--text3);font-size:.85rem;margin-bottom:1.2rem;line-height:1.6;">Condividila e sbloccala subito. Qualcuno nella tua rete sta lavorando 60 ore a settimana senza sapere che esiste un'alternativa. Faglielo sapere.</p>
-      <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;">
-        <button onclick="shareAndUnlock('facebook')" style="background:#1877F2;color:#fff;border:none;padding:.75rem 1.8rem;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;transition:all .2s;">📘 Condividi su Facebook</button>
-        <button onclick="shareAndUnlock('linkedin')" style="background:#0A66C2;color:#fff;border:none;padding:.75rem 1.8rem;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;transition:all .2s;">💼 Condividi su LinkedIn</button>
-      </div>
-    </div>
-
-    <!-- STEP 2: EMAIL (hidden until share) -->
-    <div id="gate-form" style="display:none;flex-direction:column;gap:.8rem;">
-      <p style="color:var(--accent);font-size:.95rem;font-weight:600;margin-bottom:.3rem;">✅ Grazie! Ora inserisci la tua email per accedere:</p>
-      <input type="text" id="gate-name" placeholder="Il tuo nome" style="background:var(--card);border:1px solid var(--border);color:var(--text);padding:.8rem 1rem;border-radius:8px;font-size:1rem;font-family:'DM Sans',sans-serif;outline:none;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'">
-      <input type="email" id="gate-email" placeholder="La tua email migliore" required style="background:var(--card);border:1px solid var(--border);color:var(--text);padding:.8rem 1rem;border-radius:8px;font-size:1rem;font-family:'DM Sans',sans-serif;outline:none;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'">
-      <div style="display:flex;align-items:flex-start;gap:8px;margin:4px 0;">
-        <input type="checkbox" id="privacy-consent" style="margin-top:4px;min-width:18px;min-height:18px;cursor:pointer;accent-color:var(--accent);">
-        <label for="privacy-consent" style="font-size:.8rem;color:var(--text3);line-height:1.4;cursor:pointer;text-align:left;">Acconsento al trattamento dei miei dati per ricevere la guida e aggiornamenti sull'AI. <a href="privacy.html" target="_blank" style="color:var(--accent);text-decoration:underline;">Privacy Policy</a></label>
-      </div>
-      <button id="gate-btn" onclick="unlockGuide()" style="background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--bg);border:none;padding:.9rem;border-radius:8px;font-size:1.05rem;font-weight:700;cursor:pointer;transition:all .2s;letter-spacing:1px;">ACCEDI ALLA GUIDA →</button>
-      <p id="gate-error" style="color:var(--danger);font-size:.85rem;display:none;"></p>
-      <p style="color:var(--text3);font-size:.75rem;margin-top:.8rem;line-height:1.5;">Zero spam. Puoi cancellarti quando vuoi. — Alessandro Franzoni</p>
-    </div>
-  </div>
-</div>
+<!-- Email gate spostato inline dopo Capitolo 2 -->
 
 <button class="sidebar-toggle" onclick="document.querySelector('.sidebar').classList.toggle('show')">☰</button>
 <button class="theme-toggle" onclick="toggleTheme()" title="Cambia tema">🌓</button>
@@ -481,31 +455,31 @@ body.gated { overflow: hidden; }
   <a href="#cap2">Il Paradosso dell'Imprenditore</a>
   <a href="#cap3" class="chapter">Cap. 2</a>
   <a href="#cap3">Cos'è un'Agenzia AI</a>
-  <a href="#cap4" class="chapter">Cap. 3</a>
-  <a href="#cap4">L'Architettura: i 3 Livelli</a>
-  <a href="#cap5" class="chapter">Cap. 4</a>
-  <a href="#cap5">La Mappa degli Agenti</a>
-  <a href="#prezzi">Prezzi aggiornati 2026</a>
-  <a href="#cap6" class="chapter">Cap. 5</a>
-  <a href="#cap6">CoWork: il Tuo Copilota</a>
-  <a href="#chrome">Claude in Chrome</a>
-  <a href="#cap7" class="chapter">Cap. 6</a>
-  <a href="#cap7">I Tuoi Primi 7 Giorni</a>
-  <a href="#cap8" class="chapter">Cap. 7</a>
-  <a href="#cap8">I 4 Pilastri</a>
-  <a href="#cap9" class="chapter">Cap. 8</a>
-  <a href="#cap9">Centro di Controllo</a>
-  <a href="#cap10" class="chapter">Cap. 9</a>
-  <a href="#cap10">Gli 8 Errori</a>
-  <a href="#cap11" class="chapter">Cap. 10</a>
-  <a href="#cap11">I Prossimi 23 Giorni</a>
-  <a href="#cap12" class="chapter">Cap. 11</a>
-  <a href="#cap12">E Adesso?</a>
-  <a href="#appendice-a" class="chapter">Appendici</a>
-  <a href="#appendice-a">Prompt Kit (10+)</a>
-  <a href="#appendice-b">Film sull'AI</a>
-  <a href="#appendice-c">Risorse e Link</a>
-  <a href="#appendice-d">Glossario</a>
+  <a href="#cap4" class="chapter locked">Cap. 3</a>
+  <a href="#cap4" class="locked">L'Architettura: i 3 Livelli</a>
+  <a href="#cap5" class="chapter locked">Cap. 4</a>
+  <a href="#cap5" class="locked">La Mappa degli Agenti</a>
+  <a href="#prezzi" class="locked">Prezzi aggiornati 2026</a>
+  <a href="#cap6" class="chapter locked">Cap. 5</a>
+  <a href="#cap6" class="locked">CoWork: il Tuo Copilota</a>
+  <a href="#chrome" class="locked">Claude in Chrome</a>
+  <a href="#cap7" class="chapter locked">Cap. 6</a>
+  <a href="#cap7" class="locked">I Tuoi Primi 7 Giorni</a>
+  <a href="#cap8" class="chapter locked">Cap. 7</a>
+  <a href="#cap8" class="locked">I 4 Pilastri</a>
+  <a href="#cap9" class="chapter locked">Cap. 8</a>
+  <a href="#cap9" class="locked">Centro di Controllo</a>
+  <a href="#cap10" class="chapter locked">Cap. 9</a>
+  <a href="#cap10" class="locked">Gli 8 Errori</a>
+  <a href="#cap11" class="chapter locked">Cap. 10</a>
+  <a href="#cap11" class="locked">I Prossimi 23 Giorni</a>
+  <a href="#cap12" class="chapter locked">Cap. 11</a>
+  <a href="#cap12" class="locked">E Adesso?</a>
+  <a href="#appendice-a" class="chapter locked">Appendici</a>
+  <a href="#appendice-a" class="locked">Prompt Kit (10+)</a>
+  <a href="#appendice-b" class="locked">Film sull'AI</a>
+  <a href="#appendice-c" class="locked">Risorse e Link</a>
+  <a href="#appendice-d" class="locked">Glossario</a>
 </nav>
 
 <div class="main">
@@ -680,6 +654,23 @@ In un'Agenzia AI, gli agenti non sono strumenti isolati. Sono un sistema collega
 </div>
 </section>
 
+<!-- MID-CONTENT EMAIL GATE -->
+<div id="mid-gate">
+  <div style="font-size:2rem;margin-bottom:.8rem;">🔓</div>
+  <h3>Ti sta piacendo? C'è molto di più.</h3>
+  <p class="gate-sub">I restanti <strong>9 capitoli + 4 appendici</strong> con template pronti, calcolatori interattivi, prompt operativi e un piano d'azione di 30 giorni.<br>Lascia la tua email per sbloccarli — è gratis.</p>
+  <input type="text" id="gate-name" placeholder="Il tuo nome">
+  <input type="email" id="gate-email" placeholder="La tua email migliore">
+  <div style="display:flex;align-items:flex-start;gap:8px;margin:8px auto;max-width:400px;">
+    <input type="checkbox" id="privacy-consent" style="margin-top:4px;min-width:18px;min-height:18px;cursor:pointer;accent-color:var(--accent);">
+    <label for="privacy-consent" style="font-size:.8rem;color:var(--text3);line-height:1.4;cursor:pointer;text-align:left;">Acconsento al trattamento dei miei dati per ricevere la guida e aggiornamenti sull'AI. <a href="privacy.html" target="_blank" style="color:var(--accent);text-decoration:underline;">Privacy Policy</a></label>
+  </div>
+  <button id="mid-gate-btn" onclick="unlockGuide()">SBLOCCA LA GUIDA COMPLETA →</button>
+  <p id="gate-error" style="color:var(--danger);font-size:.85rem;display:none;margin-top:.5rem;"></p>
+  <p style="color:var(--text3);font-size:.75rem;margin-top:1rem;">Zero spam. Puoi cancellarti quando vuoi. — Alessandro Franzoni</p>
+</div>
+
+<div id="locked-content">
 <div class="sep"></div>
 
 <!-- CAP 3: L'ARCHITETTURA -->
@@ -1638,6 +1629,19 @@ Sii brutalmente onesto. Zero diplomazia.</div>
   <p style="margin-top:1.5rem;font-size:.75rem">© 2026 Tsunami AI — Tutti i diritti riservati · #FranzAIRetreat</p>
 </div>
 
+<!-- SHARE CTA (soft, non obbligatoria) -->
+<div id="share-cta">
+  <h3>Se questa guida ti è stata utile, condividila.</h3>
+  <p style="color:var(--text2);font-size:.9rem;">Qualcuno nella tua rete sta lavorando 60 ore a settimana senza sapere che esiste un'alternativa.</p>
+  <div class="share-buttons">
+    <button onclick="shareGuide('whatsapp')" style="background:#25D366;color:#fff;">💬 WhatsApp</button>
+    <button onclick="shareGuide('linkedin')" style="background:#0A66C2;color:#fff;">💼 LinkedIn</button>
+    <button onclick="shareGuide('copy')" id="copy-link-btn" style="background:var(--bg3);color:var(--text);">🔗 Copia Link</button>
+  </div>
+</div>
+
+</div><!-- end locked-content -->
+
 </div><!-- end main -->
 
 <script>
@@ -1731,40 +1735,16 @@ function calcROI() {
 </script>
 
 <script>
-// ============ EMAIL GATE LOGIC ============
-// CONFIGURAZIONE: Inserisci il tuo webhook n8n qui sotto
+// ============ INLINE EMAIL GATE LOGIC ============
 const WEBHOOK_URL = 'https://n8n-pacc.srv1478295.hstgr.cloud/webhook/guida-lead';
-// Il webhook riceverà: { name, email, source: "guida-agenzia-ai", timestamp }
-
 const SHARE_URL = 'https://alessandrofranz78-web.github.io/guida-agenzia-ai/';
-const SHARE_TEXT = 'Un imprenditore ha passato 31 notti insonni e speso €1.702 testando ogni AI sul mercato. Poi ha messo tutto in una guida gratuita di 11 capitoli. Il capitolo 3 da solo vale il prezzo di un corso. Zero codice, zero fuffa — solo quello che funziona davvero.';
+const SHARE_TEXT = 'Un imprenditore ha speso €1.702 testando ogni AI sul mercato. Ha messo tutto in una guida gratuita di 11 capitoli. Zero codice, zero fuffa — solo roba reale.';
 
-function shareAndUnlock(platform) {
-  let url = '';
-  switch(platform) {
-    case 'facebook':
-      url = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(SHARE_URL) + '&quote=' + encodeURIComponent(SHARE_TEXT);
-      break;
-    case 'linkedin':
-      url = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(SHARE_URL);
-      break;
-  }
-  if (url) window.open(url, '_blank', 'width=600,height=500');
-  // Mostra il form email
-  document.getElementById('gate-share').style.display = 'none';
-  var form = document.getElementById('gate-form');
-  form.style.display = 'flex';
-  form.style.animation = 'fadeIn .4s ease';
-  window._sharedVia = platform;
-}
-
+// Check if already unlocked
 (function initGate() {
-  // Controlla se l'utente ha già sbloccato
   const unlocked = localStorage.getItem('guida-ai-unlocked');
   if (unlocked) {
-    document.getElementById('email-gate').style.display = 'none';
-  } else {
-    document.body.classList.add('gated');
+    document.body.classList.add('unlocked');
   }
 })();
 
@@ -1772,8 +1752,8 @@ async function unlockGuide() {
   const name = document.getElementById('gate-name').value.trim();
   const email = document.getElementById('gate-email').value.trim();
   const errorEl = document.getElementById('gate-error');
-  const btn = document.getElementById('gate-btn');
-  
+  const btn = document.getElementById('mid-gate-btn');
+
   // Validazione
   if (!email || !email.includes('@') || !email.includes('.')) {
     errorEl.textContent = 'Inserisci un indirizzo email valido.';
@@ -1787,12 +1767,12 @@ async function unlockGuide() {
     return;
   }
   errorEl.style.display = 'none';
-  
+
   // UI loading
   btn.textContent = 'Sblocco in corso...';
   btn.disabled = true;
-  
-  // Invia al webhook (fire & forget - non blocca l'accesso se il webhook fallisce)
+
+  // Invia al webhook (fire & forget)
   try {
     fetch(WEBHOOK_URL, {
       method: 'POST',
@@ -1800,31 +1780,47 @@ async function unlockGuide() {
       body: JSON.stringify({
         name: name || 'Non fornito',
         email: email,
-        shared_via: window._sharedVia || 'unknown',
+        shared_via: 'direct',
         privacy_consent: true,
-        consent_timestamp: new Date().toISOString(),
         source: 'guida-agenzia-ai',
         timestamp: new Date().toISOString()
       })
-    }).catch(() => {}); // ignora errori silenziosamente
+    }).catch(() => {});
   } catch(e) {}
-  
-  // Sblocca la guida
+
+  // Sblocca
   localStorage.setItem('guida-ai-unlocked', email);
-  
-  // Animazione uscita
-  const gate = document.getElementById('email-gate');
-  gate.style.opacity = '0';
+  document.body.classList.add('unlocked');
+
+  // Scroll smooth al contenuto sbloccato
   setTimeout(() => {
-    gate.style.display = 'none';
-    document.body.classList.remove('gated');
-  }, 500);
+    document.getElementById('locked-content').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 300);
 }
 
 // Enter key per submit
 document.getElementById('gate-email').addEventListener('keydown', function(e) {
   if (e.key === 'Enter') unlockGuide();
 });
+
+// Share buttons (soft CTA in fondo alla guida)
+function shareGuide(platform) {
+  switch(platform) {
+    case 'whatsapp':
+      window.open('https://wa.me/?text=' + encodeURIComponent(SHARE_TEXT + '\n\n' + SHARE_URL), '_blank');
+      break;
+    case 'linkedin':
+      window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(SHARE_URL), '_blank', 'width=600,height=500');
+      break;
+    case 'copy':
+      navigator.clipboard.writeText(SHARE_URL).then(() => {
+        const btn = document.getElementById('copy-link-btn');
+        btn.innerHTML = '✓ Copiato!';
+        setTimeout(() => { btn.innerHTML = '🔗 Copia Link'; }, 2000);
+      });
+      break;
+  }
+}
 </script>
 
 <script>
