@@ -1785,7 +1785,6 @@ async function unlockGuide() {
     fetch(WEBHOOK_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      mode: 'no-cors', // per evitare problemi CORS con n8n
       body: JSON.stringify({
         name: name || 'Non fornito',
         email: email,
