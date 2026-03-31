@@ -441,6 +441,38 @@ body.unlocked .sidebar a.locked::after { content: ''; }
 </head>
 <body>
 
+<!-- COUNTDOWN TIMER BANNER -->
+<div id="countdown-banner" style="position:fixed;top:0;left:0;right:0;z-index:9999;background:linear-gradient(90deg,#0a0a0f,#1a1a2e);border-bottom:2px solid #00d4aa;padding:.6rem 1rem;display:flex;align-items:center;justify-content:center;gap:.8rem;flex-wrap:wrap;font-family:'DM Sans',sans-serif;">
+  <span style="color:#ff4757;font-weight:700;font-size:.95rem;">⏳ Questa guida diventerà a pagamento (€47)</span>
+  <span id="countdown-timer" style="color:#00d4aa;font-weight:900;font-size:1.1rem;font-family:'JetBrains Mono',monospace;letter-spacing:1px;">--g --h --m --s</span>
+  <span style="color:#9090a0;font-size:.85rem;">Leggila ora, finché è gratis.</span>
+</div>
+<script>
+(function(){
+  var deadline = new Date('2025-04-15T23:59:59').getTime();
+  var el = document.getElementById('countdown-timer');
+  var banner = document.getElementById('countdown-banner');
+  function tick(){
+    var now = new Date().getTime();
+    var diff = deadline - now;
+    if(diff <= 0){ 
+      banner.innerHTML = '<span style="color:#ff4757;font-weight:700;font-size:.95rem;">🔒 Questa guida è ora a pagamento — €47</span><a href="https://agenzia-ai.tech" style="color:#00d4aa;font-weight:700;text-decoration:underline;margin-left:.5rem;">Acquistala qui →</a>';
+      return; 
+    }
+    var g = Math.floor(diff/(1000*60*60*24));
+    var h = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+    var m = Math.floor((diff%(1000*60*60))/(1000*60));
+    var s = Math.floor((diff%(1000*60))/1000);
+    el.textContent = g+'g '+h+'h '+m+'m '+s+'s';
+  }
+  tick();
+  setInterval(tick, 1000);
+  // Push content down to avoid overlap
+  document.body.style.paddingTop = (banner.offsetHeight + 4) + 'px';
+  window.addEventListener('resize', function(){ document.body.style.paddingTop = (banner.offsetHeight + 4) + 'px'; });
+})();
+</script>
+
 <!-- Email gate spostato inline dopo Capitolo 2 -->
 
 <button class="sidebar-toggle" onclick="document.querySelector('.sidebar').classList.toggle('show')">☰</button>
