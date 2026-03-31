@@ -438,6 +438,10 @@ body.unlocked .sidebar a.locked::after { content: ''; }
 }
 
 </style>
+<!-- Microsoft Clarity Analytics -->
+<script type="text/javascript">
+(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","w4j0vuix9i");
+</script>
 </head>
 <body>
 
@@ -1849,6 +1853,23 @@ const WEBHOOK_URL = 'https://n8n-pacc.srv1478295.hstgr.cloud/webhook/guida-lead'
 const SHARE_URL = 'https://alessandrofranz78-web.github.io/guida-agenzia-ai/';
 const SHARE_TEXT = 'Un imprenditore ha speso €1.702 testando ogni AI sul mercato. Ha messo tutto in una guida gratuita di 11 capitoli. Zero codice, zero fuffa — solo roba reale.';
 
+// UTM Parameter Reader
+const UTM_PARAMS = (function() {
+  const params = new URLSearchParams(window.location.search);
+  const utm = {
+    source: params.get('utm_source') || 'direct',
+    medium: params.get('utm_medium') || 'none',
+    campaign: params.get('utm_campaign') || 'none',
+    content: params.get('utm_content') || ''
+  };
+  if (window.clarity) {
+    clarity('set', 'utm_source', utm.source);
+    clarity('set', 'utm_medium', utm.medium);
+    clarity('set', 'utm_campaign', utm.campaign);
+  }
+  return utm;
+})();
+
 // Check if already unlocked
 (function initGate() {
   const unlocked = localStorage.getItem('guida-ai-unlocked');
@@ -1891,7 +1912,9 @@ async function unlockGuide() {
         email: email,
         shared_via: 'direct',
         privacy_consent: true,
-        source: 'guida-agenzia-ai',
+        source: UTM_PARAMS.source,
+        utm_medium: UTM_PARAMS.medium,
+        utm_campaign: UTM_PARAMS.campaign,
         timestamp: new Date().toISOString()
       })
     }).catch(() => {});
@@ -1900,6 +1923,10 @@ async function unlockGuide() {
   // Sblocca
   localStorage.setItem('guida-ai-unlocked', email);
   document.body.classList.add('unlocked');
+  if (window.clarity) {
+    clarity('event', 'gate_conversion');
+    clarity('set', 'lead_email', email.split('@')[1]);
+  }
 
   // Scroll smooth al contenuto sbloccato
   setTimeout(() => {
@@ -2047,6 +2074,81 @@ function shareCalendly(platform) {
 }
 
 document.addEventListener('DOMContentLoaded', initCalendlyGate);
+</script>
+
+<!-- Funnel Tracking Events -->
+<script>
+(function() {
+  var cl = function(ev) { if (window.clarity) clarity('event', ev); };
+
+  // 1. Scroll depth tracking (25/50/75/100%)
+  var scrollFired = {};
+  window.addEventListener('scroll', function() {
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    if (h <= 0) return;
+    var pct = Math.round((window.scrollY / h) * 100);
+    [25, 50, 75, 100].forEach(function(t) {
+      if (pct >= t && !scrollFired[t]) {
+        scrollFired[t] = true;
+        cl('scroll_' + t);
+      }
+    });
+  });
+
+  // 2. Email gate viewed (IntersectionObserver)
+  var gate = document.getElementById('mid-gate');
+  if (gate && 'IntersectionObserver' in window) {
+    var gateObs = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting) {
+        cl('gate_viewed');
+        gateObs.disconnect();
+      }
+    }, { threshold: 0.5 });
+    gateObs.observe(gate);
+  }
+
+  // 3. Email gate interaction (user starts typing)
+  var gateEmail = document.getElementById('gate-email');
+  if (gateEmail) {
+    gateEmail.addEventListener('focus', function() {
+      cl('gate_interaction');
+    }, { once: true });
+  }
+
+  // 4. Chapter section viewed tracking
+  var chapters = document.querySelectorAll('section[id^="cap"]');
+  if ('IntersectionObserver' in window && chapters.length) {
+    var chapObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          cl('chapter_' + e.target.id);
+          chapObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    chapters.forEach(function(s) { chapObs.observe(s); });
+  }
+
+  // 5. Time on page milestones (30s, 60s, 120s, 300s)
+  var timeFired = {};
+  [30, 60, 120, 300].forEach(function(t) {
+    setTimeout(function() {
+      if (!document.hidden) {
+        timeFired[t] = true;
+        cl('time_' + t + 's');
+      }
+    }, t * 1000);
+  });
+
+  // 6. Share button clicks
+  var origShare = window.shareGuide;
+  if (origShare) {
+    window.shareGuide = function(platform) {
+      cl('share_' + platform);
+      origShare(platform);
+    };
+  }
+})();
 </script>
 </body>
 </html>
