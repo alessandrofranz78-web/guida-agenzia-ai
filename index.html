@@ -320,7 +320,7 @@ tr:hover td { background: rgba(0,180,216,.03); }
 
 /* THEME TOGGLE */
 .theme-toggle {
-  position: fixed; top: 4.5rem; right: 1rem;
+  position: fixed; top: 1rem; right: 1rem;
   z-index: 200; background: var(--card);
   border: 1px solid var(--border); border-radius: 50%;
   width: 44px; height: 44px; cursor: pointer;
@@ -356,6 +356,7 @@ body.light img.guide-img { box-shadow: 0 4px 20px rgba(0,0,0,.1); }
 
 /* PDF DOWNLOAD BAR */
 body:not(.unlocked) .pdf-bar { display: none !important; }
+#countdown-banner { display: none !important; }
 .pdf-bar {
   position: fixed; bottom: 0; left: 280px; right: 0;
   background: var(--bg2); border-top: 1px solid var(--border);
@@ -526,12 +527,18 @@ body.unlocked .sidebar a.locked::after { content: ''; }
 <!-- HERO -->
 
   <!-- Onboarding: come usare questa guida -->
+  <!-- Onboarding + Countdown -->
   <div id="onboarding" style="max-width: 720px; margin: 2rem auto; padding: 1.5rem 2rem; background: var(--card); border: 1px solid var(--border); border-radius: 12px;">
+    <div id="onboard-countdown" style="text-align: center; margin-bottom: 1.2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border);">
+      <p style="margin: 0 0 .3rem; font-size: .9rem; color: var(--text2);">⏳ Questa guida diventerà a pagamento (€47) tra:</p>
+      <div id="onboard-timer" style="font-size: 1.4rem; font-weight: 700; color: var(--accent); letter-spacing: .05em;">--g --h --m --s</div>
+      <p style="margin: .3rem 0 0; font-size: .85rem; color: var(--text2);">Leggila ora, finché è gratis. Dopo questa data sarà disponibile su <a href="https://agenzia-ai.tech" style="color: var(--accent);">agenzia-ai.tech</a></p>
+    </div>
     <h3 style="margin: 0 0 .8rem; font-size: 1.1rem; color: var(--accent);">🧭 Come usare questa guida</h3>
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; font-size: .9rem; color: var(--text2);">
-      <div><strong>📑 Sidebar</strong><br>Usa il menu laterale per navigare tra i capitoli. Su mobile, tocca l’icona ☰ in alto a sinistra.</div>
-      <div><strong>🌓 Tema chiaro/scuro</strong><br>Premi il pulsante 🌓 in alto a destra per cambiare tema. Il tema chiaro è ideale per la stampa.</div>
-      <div><strong>📄 Salva come PDF</strong><br>Dopo aver sbloccato tutti i capitoli, troverai il pulsante “Stampa / Salva PDF” in basso.</div>
+      <div><strong>☰ Menu</strong><br>Usa la sidebar a sinistra per navigare tra i capitoli. Su mobile, tocca ☰ in alto.</div>
+      <div><strong>🌓 Tema</strong><br>In alto a destra trovi il pulsante per passare da tema scuro a chiaro. Il tema chiaro è ideale per la stampa.</div>
+      <div><strong>📄 Salva PDF</strong><br>Dopo aver sbloccato tutti i capitoli con la tua email, troverai il pulsante “Stampa / Salva PDF” in basso.</div>
     </div>
   </div>
   <!-- /Onboarding -->
@@ -2169,6 +2176,30 @@ document.addEventListener('DOMContentLoaded', initCalendlyGate);
       origShare(platform);
     };
   }
+})();
+</script>
+
+<script>
+(function(){
+  var target = new Date('2026-04-16T00:00:00');
+  var el = document.getElementById('onboard-timer');
+  if (!el) return;
+  function tick() {
+    var now = new Date();
+    var diff = target - now;
+    if (diff <= 0) {
+      el.textContent = 'Tempo scaduto';
+      document.getElementById('onboard-countdown').innerHTML = '<p style="color:var(--accent);font-weight:700;">La guida è ora a pagamento. <a href="https://agenzia-ai.tech" style="color:var(--accent);">Acquistala qui</a></p>';
+      return;
+    }
+    var d = Math.floor(diff / 86400000);
+    var hr = Math.floor((diff % 86400000) / 3600000);
+    var mn = Math.floor((diff % 3600000) / 60000);
+    var sc = Math.floor((diff % 60000) / 1000);
+    el.textContent = d + 'g ' + hr + 'h ' + mn + 'm ' + sc + 's';
+    requestAnimationFrame(tick);
+  }
+  tick();
 })();
 </script>
 </body>
