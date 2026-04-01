@@ -9,7 +9,7 @@
 <!-- Open Graph / Facebook / WhatsApp / LinkedIn -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://alessandrofranzoni.com/guida/">
-<meta property="og:title" content="€127/mese. 8 agenti AI. Zero dipendenti.">
+<meta property="og:title" content="Guida di Sopravvivenza allo Tsunami AI — Alessandro Franzoni">
 <meta property="og:description" content="Come un non-programmatore ha costruito un'agenzia operativa con l'intelligenza artificiale. Guida gratuita.">
 <meta property="og:image" content="https://alessandrofranzoni.com/guida/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -22,7 +22,7 @@
 <meta name="twitter:description" content="Come un non-programmatore ha costruito un'agenzia operativa con l'intelligenza artificiale. Guida gratuita.">
 <meta name="twitter:image" content="https://alessandrofranzoni.com/guida/og-image.png">
 
-<title>AGENZIA AI — La Guida Completa | Alessandro Franzoni</title>
+<title>Guida di Sopravvivenza allo Tsunami AI | Alessandro Franzoni</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -320,7 +320,7 @@ tr:hover td { background: rgba(0,180,216,.03); }
 
 /* THEME TOGGLE */
 .theme-toggle {
-  position: fixed; top: 1rem; right: 1rem;
+  position: fixed; top: 4.5rem; right: 1rem;
   z-index: 200; background: var(--card);
   border: 1px solid var(--border); border-radius: 50%;
   width: 44px; height: 44px; cursor: pointer;
@@ -355,6 +355,7 @@ body.light .cta-block { background: linear-gradient(135deg, #f0f7ff, #e8f4ff); }
 body.light img.guide-img { box-shadow: 0 4px 20px rgba(0,0,0,.1); }
 
 /* PDF DOWNLOAD BAR */
+body:not(.unlocked) .pdf-bar { display: none !important; }
 .pdf-bar {
   position: fixed; bottom: 0; left: 280px; right: 0;
   background: var(--bg2); border-top: 1px solid var(--border);
@@ -484,8 +485,8 @@ body.unlocked .sidebar a.locked::after { content: ''; }
 
 <nav class="sidebar">
   <div class="sidebar-logo">
-    <h2>AGENZIA AI</h2>
-    <p>La Guida Completa — Modulo 1</p>
+    <h2>GUIDA DI SOPRAVVIVENZA ALLO TSUNAMI AI</h2>
+    <p>Sblocca il potenziale di quello che puoi fare senza aver mai studiato informatica e senza aver mai scritto una riga di codice. Come ho fatto io.</p>
   </div>
   <a href="#hero" class="chapter">Intro</a>
   <a href="#cap1">L'Epifania</a>
@@ -523,9 +524,20 @@ body.unlocked .sidebar a.locked::after { content: ''; }
 <div class="main">
 
 <!-- HERO -->
+
+  <!-- Onboarding: come usare questa guida -->
+  <div id="onboarding" style="max-width: 720px; margin: 2rem auto; padding: 1.5rem 2rem; background: var(--card); border: 1px solid var(--border); border-radius: 12px;">
+    <h3 style="margin: 0 0 .8rem; font-size: 1.1rem; color: var(--accent);">🧭 Come usare questa guida</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; font-size: .9rem; color: var(--text2);">
+      <div><strong>📑 Sidebar</strong><br>Usa il menu laterale per navigare tra i capitoli. Su mobile, tocca l’icona ☰ in alto a sinistra.</div>
+      <div><strong>🌓 Tema chiaro/scuro</strong><br>Premi il pulsante 🌓 in alto a destra per cambiare tema. Il tema chiaro è ideale per la stampa.</div>
+      <div><strong>📄 Salva come PDF</strong><br>Dopo aver sbloccato tutti i capitoli, troverai il pulsante “Stampa / Salva PDF” in basso.</div>
+    </div>
+  </div>
+  <!-- /Onboarding -->
 <div class="hero" id="hero">
   <div class="hero-badge">Modulo 1 — Fondamenta</div>
-  <h1>AGENZIA AI<br>La Guida Completa</h1>
+  <h1>TSUNAMI AI<br>La Guida Completa</h1>
   <p class="subtitle">Da imprenditore solo a direttore di un team AI in 30 giorni. Strategia, strumenti, prompt pronti e un piano d'azione giorno per giorno.</p>
   <div class="hero-meta">
     <span>📖 11 Capitoli</span>
@@ -667,7 +679,7 @@ Un imprenditore che lavora 60 ore a settimana non è più produttivo di uno che 
 
 <div class="sep"></div>
 
-<!-- CAP 2: COS'È UN'AGENZIA AI -->
+<!-- CAP 2: COS'È UN'TSUNAMI AI -->
 <section id="cap3">
 <h2><span class="ch-num">CAPITOLO 02</span>Cos'è un'Agenzia AI (e Cosa Non È)</h2>
 
@@ -2017,7 +2029,7 @@ function buildOrgChart() {
   
   const pipe = '<div style="color:var(--border);font-size:1.3rem;line-height:1">│</div>';
   
-  let html = '<div style="font-weight:900;font-size:1rem;color:var(--accent);margin-bottom:.8rem">🏢 LA TUA AGENZIA AI</div>';
+  let html = '<div style="font-weight:900;font-size:1rem;color:var(--accent);margin-bottom:.8rem">🏢 LA TUA TSUNAMI AI</div>';
   
   if (role.length) {
     html += box('👤 ' + role[0].name, 'var(--accent)', 'COMANDO — Human In The Loop');
