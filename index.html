@@ -1931,15 +1931,17 @@ async function unlockGuide() {
   btn.disabled = true;
 
   // Invia al webhook (fire & forget)
+  // Usa URLSearchParams + no-cors: form-urlencoded non viene strippato dal browser
+  // (a differenza di application/json che richiede preflight CORS)
   try {
     fetch(WEBHOOK_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
+      mode: 'no-cors',
+      body: new URLSearchParams({
         name: name || 'Non fornito',
         email: email,
         shared_via: 'direct',
-        privacy_consent: true,
+        privacy_consent: 'true',
         source: UTM_PARAMS.source,
         utm_medium: UTM_PARAMS.medium,
         utm_campaign: UTM_PARAMS.campaign,
