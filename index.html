@@ -449,7 +449,7 @@ body.unlocked .sidebar a.locked::after { content: ''; }
 
 <!-- COUNTDOWN TIMER BANNER -->
 <div id="countdown-banner" style="position:fixed;top:0;left:0;right:0;z-index:9999;background:linear-gradient(90deg,#0A0A0A,#141414);border-bottom:2px solid #00FF41;padding:.6rem 1rem;display:flex;align-items:center;justify-content:center;gap:.8rem;flex-wrap:wrap;font-family:'DM Sans',sans-serif;">
-  <span style="color:#ff4757;font-weight:700;font-size:.95rem;">⏳ Questa guida diventerà a pagamento ()</span>
+  
   <span id="countdown-timer" style="color:#00FF41;font-weight:900;font-size:1.1rem;font-family:'JetBrains Mono',monospace;letter-spacing:1px;">--g --h --m --s</span>
   <span style="color:#9090a0;font-size:.85rem;">Leggila ora, finché è gratis.</span>
 </div>
@@ -462,7 +462,7 @@ body.unlocked .sidebar a.locked::after { content: ''; }
     var now = new Date().getTime();
     var diff = deadline - now;
     if(diff <= 0){ 
-      banner.innerHTML = '<span style="color:#ff4757;font-weight:700;font-size:.95rem;">🔒 Questa guida è ora a pagamento — </span><a href="https://agenzia-ai.tech" style="color:#00FF41;font-weight:700;text-decoration:underline;margin-left:.5rem;">Acquistala qui →</a>';
+      banne
       return; 
     }
     var g = Math.floor(diff/(1000*60*60*24));
@@ -530,7 +530,7 @@ body.unlocked .sidebar a.locked::after { content: ''; }
   <!-- Onboarding + Countdown -->
   <div id="onboarding" style="max-width: 720px; margin: 2rem auto; padding: 1.5rem 2rem; background: var(--card); border: 1px solid var(--border); border-radius: 12px;">
     <div id="onboard-countdown" style="text-align: center; margin-bottom: 1.2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border);">
-      <p style="margin: 0 0 .3rem; font-size: .9rem; color: var(--text2);">⏳ Questa guida diventerà a pagamento () tra:</p>
+      
       <div id="onboard-timer" style="font-size: 1.4rem; font-weight: 700; color: var(--accent); letter-spacing: .05em;">--g --h --m --s</div>
       <p style="margin: .3rem 0 0; font-size: .85rem; color: var(--text2);">Leggila ora, finché è gratis. Dopo questa data sarà disponibile su <a href="https://agenzia-ai.tech" style="color: var(--accent);">agenzia-ai.tech</a></p>
     </div>
@@ -545,6 +545,14 @@ body.unlocked .sidebar a.locked::after { content: ''; }
 <div class="hero" id="hero">
   <div class="hero-badge">Modulo 1 — Fondamenta</div>
   <h1>Domina gli Agenti AI<br>per non esserne travolto</h1>
+<div class="guida-gratuita-banner" style="background: linear-gradient(135deg, #4CAF50, #45a049); color: white; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center;">
+  <h3 style="margin: 0; font-size: 24px; margin-bottom: 10px;">✓ Guida Completamente Gratuita</h3>
+  <p style="margin: 0; font-size: 16px; line-height: 1.6;">
+    Questa guida ti insegna come costruire un'Agenzia AI senza codice, testato di tasca mia in 31 notti con €1.702 di errori già pagati.<br><br>
+    <strong>Per continuare al Capitolo 2 basta inserire la tua email</strong> — riceverai accesso immediato e sarai aggiunto alla community Tsunami AI.
+  </p>
+</div>
+
 <div class="guida-gratuita-banner" style="background: linear-gradient(135deg, #4CAF50, #45a049); color: white; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center;">
   <h3 style="margin: 0; font-size: 24px; margin-bottom: 10px;">✓ Guida Completamente Gratuita</h3>
   <p style="margin: 0; font-size: 16px; line-height: 1.6;">
@@ -2202,7 +2210,7 @@ document.addEventListener('DOMContentLoaded', initCalendlyGate);
     var diff = target - now;
     if (diff <= 0) {
       el.textContent = 'Tempo scaduto';
-      document.getElementById('onboard-countdown').innerHTML = '<p style="color:var(--accent);font-weight:700;">La guida è ora a pagamento. <a href="https://agenzia-ai.tech" style="color:var(--accent);">Acquistala qui</a></p>';
+      document.getElementById('onboard-countdown').innerHTML = '';
       return;
     }
     var d = Math.floor(diff / 86400000);
@@ -2215,6 +2223,18 @@ document.addEventListener('DOMContentLoaded', initCalendlyGate);
   tick();
 })();
 </script>
+
+<div class="donazione-paypal" style="margin-top: 60px; padding: 30px; background: #f9f9f9; border-left: 4px solid #0070ba; border-radius: 4px;">
+  <h3 style="margin-top: 0;">Supporta la Community</h3>
+  <p>Se questa guida ti è stata utile e vuoi supportare la creazione di più contenuti su AI, puoi fare una donazione facoltativa:</p>
+  <a href="https://paypal.me/alessandrofranz" target="_blank" style="display: inline-block; background: #0070ba; color: white; padding: 12px 24px; border-radius: 4px; text-decoration: none; font-weight: bold; margin: 10px 0;">
+    💙 Supporta con una Donazione PayPal
+  </a>
+  <p style="font-size: 12px; color: #666; margin-top: 10px;">
+    Le donazioni ci aiutano a continuare a creare contenuti gratuiti per la community Tsunami AI.
+  </p>
+</div>
+
 
 <div class="donazione-paypal" style="margin-top: 60px; padding: 30px; background: #f9f9f9; border-left: 4px solid #0070ba; border-radius: 4px;">
   <h3 style="margin-top: 0;">Supporta la Community</h3>
