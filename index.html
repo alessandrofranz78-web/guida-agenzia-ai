@@ -545,13 +545,7 @@ body.unlocked .sidebar a.locked::after { content: ''; }
 <div class="hero" id="hero">
   <div class="hero-badge">Modulo 1 — Fondamenta</div>
   <h1>Domina gli Agenti AI<br>per non esserne travolto</h1>
-<div class="guida-gratuita-banner" style="background: linear-gradient(135deg, #4CAF50, #45a049); color: white; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center;">
-  <h3 style="margin: 0; font-size: 24px; margin-bottom: 10px;">✓ Guida Completamente Gratuita</h3>
-  <p style="margin: 0; font-size: 16px; line-height: 1.6;">
-    Questa guida ti insegna come costruire un'Agenzia AI senza codice, testato di tasca mia in 31 notti con €1.702 di errori già pagati.<br><br>
-    <strong>Per continuare al Capitolo 2 basta inserire la tua email</strong> — riceverai accesso immediato e sarai aggiunto alla community Tsunami AI.
-  </p>
-</div>
+
 
 <p class="subtitle">La guida di sopravvivenza del Franz. Come un non-programmatore ha costruito un sistema di agenti AI in 31 notti. Strategia, strumenti, prompt pronti e un piano d'azione giorno per giorno.</p>
   <div class="hero-meta">
@@ -567,6 +561,12 @@ body.unlocked .sidebar a.locked::after { content: ''; }
 <span style="color:var(--accent);font-weight:700;font-size:.9rem;">Questa guida è in continuo aggiornamento</span>
 <span style="background:var(--accent);color:var(--bg);padding:.2rem .6rem;border-radius:4px;font-size:.75rem;font-weight:700;">v1.6 · 27 Marzo 2026</span>
 </div>
+
+<div class="guida-gratuita-banner" style="background:rgba(0,255,65,.08);border:1px solid rgba(0,255,65,.25);border-radius:12px;padding:1.2rem 1.5rem;margin:0 0 2rem;text-align:center;">
+<p style="margin:0 0 .5rem;color:var(--accent);font-weight:700;font-size:1.05rem;">✓ Guida completamente gratuita</p>
+<p style="margin:0;font-size:.95rem;line-height:1.7;color:var(--text2);">Qui non ti vendo un corso. Ti mostro come usare l'AI in modo davvero efficace con gli agenti — e come esempio uso quello che ho costruito io: 31 notti, €1.702 di errori già pagati al posto tuo.<br><strong style="color:var(--text);">I primi 2 capitoli sono liberi. Per continuare basta lasciare la tua email.</strong></p>
+</div>
+
 
 <!-- INTRO: L'EPIFANIA -->
 <section id="cap1">
@@ -1387,12 +1387,10 @@ Analizziamo insieme la tua situazione. Ti mostro esattamente quali agenti AI ser
 
 <p>Se alla fine della call vedi un'opportunità concreta, ti propongo un percorso personalizzato per costruirlo insieme. Se non la vedi, ci salutiamo e hai comunque 30 minuti di strategia gratis. Zero rischio.</p>
 
-<p id="cal-timer" style="color:var(--text3);font-size:.85rem;margin-top:.8rem;display:none;"></p>
-</div>
-
-<div id="cal-unlocked" style="display:none;">
-<a href="https://calendly.com/alessandrofranzoni/call-conoscitiva" class="cta-btn" target="_blank">→ Scegli il Tuo Slot</a>
-</div>
+<div class="cta-block" id="whatsapp-cta">
+<h3>Scrivimi su WhatsApp</h3>
+<p>Niente form, niente calendari. Mandami un messaggio, dimmi chi sei e cosa fai, e fissiamo insieme la tua call strategica di 30 minuti.</p>
+<a href="https://wa.me/393923441254?text=Ciao%20Alessandro%2C%20ho%20letto%20la%20guida%20e%20vorrei%20fissare%20la%20call%20strategica" class="cta-btn" target="_blank">💬 Scrivimi su WhatsApp</a>
 </div>
 
 <p style="color:var(--text3);font-size:.85rem;font-style:italic;margin-top:1rem;">Se questa guida ti è stata utile, condividila con qualcuno che sta lavorando 60 ore a settimana senza sapere che esiste un'alternativa. A te costa un post. A loro potrebbe cambiare tutto.</p>
@@ -2070,41 +2068,7 @@ function buildOrgChart() {
 // Build initial chart (Claude is pre-selected)
 document.addEventListener('DOMContentLoaded', buildOrgChart);
 
-// Calendly share-to-unlock
-function initCalendlyGate() {
-  if (localStorage.getItem('guida-ai-cal-unlocked')) {
-    document.getElementById('cal-share-step').style.display = 'none';
-    document.getElementById('cal-unlocked').style.display = 'block';
-  }
-}
 
-function shareCalendly(platform) {
-  var url = 'https://alessandrofranzoni.com/guida/?utm_source=referral&utm_medium=' + platform + '&utm_campaign=calendly_unlock';
-  var text = 'Ho appena letto una guida gratuita su come dominare gli agenti AI senza programmare. 11 capitoli, prompt pronti, calcolatori interattivi. Vale la pena darci un\'occhiata.';
-  if (platform === 'linkedin') {
-    window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(url), '_blank');
-  } else if (platform === 'whatsapp') {
-    window.open('https://wa.me/?text=' + encodeURIComponent(text + ' ' + url), '_blank');
-  }
-  var timer = document.getElementById('cal-timer');
-  timer.style.display = 'block';
-  var sec = 5;
-  timer.textContent = 'Sblocco in ' + sec + ' secondi...';
-  var interval = setInterval(function() {
-    sec--;
-    if (sec > 0) {
-      timer.textContent = 'Sblocco in ' + sec + ' secondi...';
-    } else {
-      clearInterval(interval);
-      timer.style.display = 'none';
-      document.getElementById('cal-share-step').style.display = 'none';
-      document.getElementById('cal-unlocked').style.display = 'block';
-      localStorage.setItem('guida-ai-cal-unlocked', 'true');
-    }
-  }, 1000);
-}
-
-document.addEventListener('DOMContentLoaded', initCalendlyGate);
 </script>
 
 <!-- Funnel Tracking Events -->
@@ -2208,18 +2172,7 @@ document.addEventListener('DOMContentLoaded', initCalendlyGate);
 
 
 
-<div class="cta-block" style="background: linear-gradient(135deg, #25D366, #20BA5A); color: white; padding: 40px 20px; border-radius: 12px; text-align: center; margin: 40px 0;">
-  <h3 style="margin: 0 0 15px 0; font-size: 28px;">💬 Parliamo della Tua Strategia AI</h3>
-  <p style="margin: 0 0 20px 0; font-size: 16px; line-height: 1.6;">
-    Hai una domanda? Vuoi capire come applicare questi metodi al tuo business? Scrivimi su WhatsApp — organizziamo una call di 30 minuti per fare strategia insieme. Senza impegno, senza upsell.
-  </p>
-  <a href="https://wa.me/393923441254" target="_blank" style="display: inline-block; background: white; color: #25D366; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 16px; margin: 10px 0; transition: transform 0.2s;">
-    💬 Scrivimi su WhatsApp
-  </a>
-  <p style="font-size: 13px; color: rgba(255,255,255,0.8); margin-top: 15px;">
-    Tipicamente rispondo entro 2 ore. Se non mi vedi subito, controlla la cartella spam 😊
-  </p>
-</div>
+
 
 </body>
 </html>
